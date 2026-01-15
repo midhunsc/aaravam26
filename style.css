@@ -35,18 +35,18 @@ body {
 }
 /* Scoreboard title */
 .section-title.scoreboard {
-  background: rgba(26, 26, 79, 0.9);
+  background-color: rgba(9, 61, 139, 0.7);
 }
 
 /* Event results title */
 .section-title.events {
-  background: rgba(30, 195, 245, 0.85); /* subtle purple for arts */
+ background-color: rgba(236, 181, 28, 0.7); /* subtle purple for arts */
 }
 
 /* ---------- HEADER ---------- */
 .fest-header {
-  background: linear-gradient(135deg, #242494, #2f87fa);
-
+  /* background: linear-gradient(135deg, #242494, #2f87fa); */
+   background-color: rgba(0, 0, 0, 0.7);
   backdrop-filter: blur(6px);
   color: #ffffff;
   padding: 22px 15px;
@@ -321,3 +321,22 @@ button {
   }
 }
 
+.site-footer {
+  background-color: rgba(0, 0, 0, 0.7); /* semi-transparent dark background */
+  color: #fff;                        /* white text */
+  text-align: center;                  /* center text */
+  padding: 12px 20px;                  /* vertical & horizontal padding */
+  font-size: 0.9rem;                   /* slightly smaller font */
+  position: relative;                  /* stays at bottom if content is short */
+  margin-top: 30px;                    /* space above footer */
+  border-top: 1px solid #ffc402;      /* optional yellow top border for style */
+  box-shadow: 0 -3px 10px rgba(0,0,0,0.3); /* subtle shadow */
+  /* position: fixed; */
+  bottom: 0;
+  left: 0;
+  width: 100%;
+}
+.site-footer p:hover {
+  color: #ffc402; /* bright yellow on hover */
+  transition: 0.3s ease;
+}
