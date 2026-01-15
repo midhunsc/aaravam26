@@ -268,11 +268,18 @@ document.getElementById("eventSearch").addEventListener("input", function () {
 
 // Restore last updated time after refresh
 document.addEventListener("DOMContentLoaded", () => {
+  const el = document.getElementById("lastUpdated");
 
+  // Restore saved time if any
   const savedTime = localStorage.getItem("lastUpdatedTime");
   if (savedTime) {
-    const el = document.getElementById("lastUpdated");
-    if (el) el.innerText = savedTime;
+    el.innerText = savedTime;
+  } else {
+    //  Set default time immediately so element is never empty
+    const now = new Date();
+    el.innerText = `Last updated at: ${now.toLocaleTimeString([], {
+      hour: "2-digit", minute: "2-digit", second: "2-digit"
+    })}`;
   }
 
   loadScoreboard();
