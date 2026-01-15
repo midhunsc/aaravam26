@@ -9,6 +9,9 @@ let lastEventsData = "";
 let allEvents = [];
 let eventsVisible = PAGE_SIZE;
 let isSearching = false;
+let scoreboardInitialized = false;
+let eventsInitialized = false;
+let dataUpdated = false;
 
 /* ---------------- SCOREBOARD ---------------- */
 
@@ -20,13 +23,13 @@ function loadScoreboard() {
       // Sort for consistent comparison
       data.sort((a, b) => a.Department.localeCompare(b.Department));
 
-      const currentData = JSON.stringify(data);
+      const currentSignature = data
+      .map(d => `${d.Department}:${d.Points}`)
+      .join("|");
 
-      // 🔴 NO CHANGE → DO NOTHING
-      if (currentData === lastScoreboardData) return;
+      if (currentSignature === lastScoreboardData) return;
 
-      // 🟢 DATA CHANGED
-      lastScoreboardData = currentData;
+      lastScoreboardData = currentSignature;
 
       // Sort by points for display
       data.sort((a, b) => Number(b.Points) - Number(a.Points));
@@ -42,9 +45,25 @@ function loadScoreboard() {
         `;
       });
 
-      document.getElementById("scoreboard").innerHTML = html;
+    
+      const table = document.getElementById("scoreboard");
+      table.innerHTML = html;
 
-      updateLastUpdatedTime(); // ✅ ONLY HERE
+      // 🔔 flicker effect
+      if (scoreboardInitialized) {
+        table.classList.add("update-flicker");
+        setTimeout(() => table.classList.remove("update-flicker"), 1200);
+      }
+
+      scoreboardInitialized = true;
+
+      const liveBadge = document.querySelector(".live-badge");
+      liveBadge.classList.add("update-flicker");
+      setTimeout(() => liveBadge.classList.remove("update-flicker"), 1200);
+
+      dataUpdated = true;
+
+
     })
     .catch(err => console.error("Scoreboard error:", err));
 }
@@ -85,11 +104,28 @@ function loadEvents() {
       eventsVisible = PAGE_SIZE;
 
       renderEvents();
-      updateLastUpdatedTime(); // ✅ ONLY WHEN UPDATED
+
+      // flicker all event cards
+      if (eventsInitialized) {
+        document.querySelectorAll(".event-card").forEach(card => {
+          card.classList.add("update-flicker");
+          setTimeout(() => card.classList.remove("update-flicker"), 1200);
+        });
+      }
+
+      eventsInitialized = true;
+
+
+      dataUpdated = true;
+
     })
     .catch(err => console.error("Events error:", err));
 }
-
+function commitUpdateTime() {
+  if (!dataUpdated) return;
+  dataUpdated = false;
+  updateLastUpdatedTime();
+}
 
 function renderEvents() {
  let html = "";
@@ -179,9 +215,14 @@ function updateLastUpdatedTime() {
     second: "2-digit"
   });
 
-  document.getElementById("lastUpdated").innerText =
-    `Last updated at: ${time}`;
+  const value = `Last updated at: ${time}`;
+
+  // ✅ save to localStorage
+  localStorage.setItem("lastUpdatedTime", value);
+
+  document.getElementById("lastUpdated").innerText = value;
 }
+
 
 /* ---------------- INITIAL LOAD ---------------- */
 
@@ -193,8 +234,8 @@ loadEvents();
 setInterval(() => {
   loadScoreboard();
   loadEvents();
+  setTimeout(commitUpdateTime, 500); // wait for fetch
 }, 30000);
-
 
 
 document.getElementById("eventSearch").addEventListener("input", function () {
@@ -218,4 +259,10 @@ document.getElementById("eventSearch").addEventListener("input", function () {
   eventsVisible = PAGE_SIZE;
   renderEvents();
 });
+
+// Restore last updated time after refresh
+const savedTime = localStorage.getItem("lastUpdatedTime");
+if (savedTime) {
+  document.getElementById("lastUpdated").innerText = savedTime;
+}
 
