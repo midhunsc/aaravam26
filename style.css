@@ -46,7 +46,7 @@ body {
 /* ---------- HEADER ---------- */
 .fest-header {
   /* background: linear-gradient(135deg, #242494, #2f87fa); */
-   background-color: rgba(0, 0, 0, 0.7);
+   background-color: rgba(7, 101, 207, 0.7);
   backdrop-filter: blur(6px);
   color: #ffffff;
   padding: 22px 15px;
