@@ -40,12 +40,12 @@ body {
 
 /* Event results title */
 .section-title.events {
-  background: rgba(128, 0, 128, 0.85); /* subtle purple for arts */
+  background: rgba(30, 195, 245, 0.85); /* subtle purple for arts */
 }
 
 /* ---------- HEADER ---------- */
 .fest-header {
-  background: rgba(20, 20, 60, 0.85); /* deep indigo */
+  background: linear-gradient(135deg, #14143c, #6a1b9a);
   backdrop-filter: blur(6px);
   color: #ffffff;
   padding: 22px 15px;
