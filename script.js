@@ -141,7 +141,7 @@ loadEvents();
 setInterval(() => {
   loadScoreboard();
   loadEvents();
-}, 10000);
+}, 30000);
 
 
 document.addEventListener("DOMContentLoaded", () => {
