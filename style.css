@@ -361,3 +361,18 @@ button {
   border-color: #ffc402;
   box-shadow: 0 0 6px rgba(255,196,2,0.4);
 }
+
+
+.no-results {
+  text-align: center;
+  margin: 30px 0;
+  font-size: 1rem;
+  color: #666;
+  font-style: italic;
+  animation: fadeIn 0.4s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}

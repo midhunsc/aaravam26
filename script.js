@@ -8,6 +8,7 @@ let lastScoreboardData = "";
 let lastEventsData = "";
 let allEvents = [];
 let eventsVisible = PAGE_SIZE;
+let isSearching = false;
 
 /* ---------------- SCOREBOARD ---------------- */
 
@@ -91,9 +92,22 @@ function loadEvents() {
 
 
 function renderEvents() {
-  let html = "";
-  const list = filteredEvents.length ? filteredEvents : allEvents;
+ let html = "";
 
+const list = isSearching ? filteredEvents : allEvents;
+
+
+if (list.length === 0) {
+  document.getElementById("events").innerHTML = "";
+  document.getElementById("noResults").style.display = "block";
+  updateEventButtons();
+  return;
+}
+
+document.getElementById("noResults").style.display = "none";
+
+
+  
   list.slice(0, eventsVisible).forEach(e => {
     html += `
       <div class="col-md-4">
@@ -129,12 +143,15 @@ function updateEventButtons() {
   const moreBtn = document.getElementById("viewMoreBtn");
   const lessBtn = document.getElementById("viewLessBtn");
 
+  const list = filteredEvents.length ? filteredEvents : allEvents;
+
   moreBtn.style.display =
-    eventsVisible < allEvents.length ? "inline-block" : "none";
+    eventsVisible < list.length ? "inline-block" : "none";
 
   lessBtn.style.display =
     eventsVisible > PAGE_SIZE ? "inline-block" : "none";
 }
+
 
 /* ---------------- VIEW MORE / LESS ---------------- */
 
@@ -179,16 +196,13 @@ setInterval(() => {
 }, 30000);
 
 
-document.addEventListener("DOMContentLoaded", () => {
-  loadScoreboard();
-  loadEvents();
-});
 
 document.getElementById("eventSearch").addEventListener("input", function () {
   const q = this.value.trim().toLowerCase();
+  isSearching = !!q;
 
   if (!q) {
-    filteredEvents = allEvents;
+    filteredEvents = [];
   } else {
     filteredEvents = allEvents.filter(e =>
       e.Event.toLowerCase().includes(q) ||
@@ -204,3 +218,4 @@ document.getElementById("eventSearch").addEventListener("input", function () {
   eventsVisible = PAGE_SIZE;
   renderEvents();
 });
+
