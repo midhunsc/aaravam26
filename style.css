@@ -448,3 +448,6 @@ button {
   }
 }
 
+.last-updated {
+  font-family: Arial, sans-serif; /* fallback for safety */
+}
