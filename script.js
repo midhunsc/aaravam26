@@ -3,6 +3,8 @@ console.log("JS loaded");
 const SHEET_ID = "1UYOe8f-uzv--xQNNOxWFyBvZAC9iFZplJnr7TMfNn8U";
 const PAGE_SIZE = 5;
 
+let lastScoreboardData = "";
+let lastEventsData = "";
 let allEvents = [];
 let eventsVisible = PAGE_SIZE;
 
@@ -13,6 +15,18 @@ function loadScoreboard() {
     .then(res => res.json())
     .then(data => {
 
+      // Sort for consistent comparison
+      data.sort((a, b) => a.Department.localeCompare(b.Department));
+
+      const currentData = JSON.stringify(data);
+
+      // 🔴 NO CHANGE → DO NOTHING
+      if (currentData === lastScoreboardData) return;
+
+      // 🟢 DATA CHANGED
+      lastScoreboardData = currentData;
+
+      // Sort by points for display
       data.sort((a, b) => Number(b.Points) - Number(a.Points));
 
       let html = "";
@@ -27,10 +41,12 @@ function loadScoreboard() {
       });
 
       document.getElementById("scoreboard").innerHTML = html;
-      updateLastUpdatedTime();
+
+      updateLastUpdatedTime(); // ✅ ONLY HERE
     })
     .catch(err => console.error("Scoreboard error:", err));
 }
+
 
 /* ---------------- EVENTS ---------------- */
 
@@ -39,22 +55,38 @@ function loadEvents() {
     .then(res => res.json())
     .then(data => {
 
-      allEvents = data.filter(e =>
+      const published = data.filter(e =>
         e.statusflag &&
         e.statusflag.trim().toLowerCase() === "result published"
       );
 
-      allEvents.sort(
-        (a, b) => Number(b["Item no"]) - Number(a["Item no"])
+      // Sort for stable comparison
+      published.sort((a, b) =>
+        Number(a["Item no"]) - Number(b["Item no"])
       );
 
-      // 🔑 Reset pagination on refresh
+      const currentData = JSON.stringify(published);
+
+      // 🔴 NO CHANGE
+      if (currentData === lastEventsData) return;
+
+      // 🟢 DATA CHANGED
+      lastEventsData = currentData;
+
+      // Display latest first
+      published.sort((a, b) =>
+        Number(b["Item no"]) - Number(a["Item no"])
+      );
+
+      allEvents = published;
       eventsVisible = PAGE_SIZE;
 
       renderEvents();
+      updateLastUpdatedTime(); // ✅ ONLY WHEN UPDATED
     })
     .catch(err => console.error("Events error:", err));
 }
+
 
 function renderEvents() {
   let html = "";
