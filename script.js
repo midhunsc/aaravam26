@@ -12,6 +12,7 @@ let isSearching = false;
 let scoreboardInitialized = false;
 let eventsInitialized = false;
 let dataUpdated = false;
+let isInitialLoad = true;
 
 /* ---------------- SCOREBOARD ---------------- */
 
@@ -62,6 +63,7 @@ function loadScoreboard() {
       setTimeout(() => liveBadge.classList.remove("update-flicker"), 1200);
 
       dataUpdated = true;
+      commitUpdateTime();
 
 
     })
@@ -117,15 +119,24 @@ function loadEvents() {
 
 
       dataUpdated = true;
+      commitUpdateTime();
 
     })
     .catch(err => console.error("Events error:", err));
 }
+let updateTimer = null;
+
 function commitUpdateTime() {
-  if (!dataUpdated) return;
-  dataUpdated = false;
-  updateLastUpdatedTime();
+  if (isInitialLoad) return; // 🚫 BLOCK ON PAGE LOAD
+  if (updateTimer) return;
+
+  updateTimer = setTimeout(() => {
+    updateLastUpdatedTime();
+    dataUpdated = false;
+    updateTimer = null;
+  }, 300);
 }
+
 
 function renderEvents() {
  let html = "";
@@ -258,7 +269,6 @@ document.getElementById("eventSearch").addEventListener("input", function () {
 // Restore last updated time after refresh
 document.addEventListener("DOMContentLoaded", () => {
 
-  // restore last updated time
   const savedTime = localStorage.getItem("lastUpdatedTime");
   if (savedTime) {
     const el = document.getElementById("lastUpdated");
@@ -268,5 +278,8 @@ document.addEventListener("DOMContentLoaded", () => {
   loadScoreboard();
   loadEvents();
 
+  setTimeout(() => {
+    isInitialLoad = false;
+  }, 1000);
 });
 
