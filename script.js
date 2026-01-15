@@ -224,19 +224,14 @@ function updateLastUpdatedTime() {
 }
 
 
-/* ---------------- INITIAL LOAD ---------------- */
-
-loadScoreboard();
-loadEvents();
-
 /* ---------------- AUTO REFRESH ---------------- */
 
-setInterval(() => {
-  loadScoreboard();
-  loadEvents();
-  setTimeout(commitUpdateTime, 500); // wait for fetch
-}, 30000);
-
+setTimeout(() => {
+  setInterval(() => {
+    loadScoreboard();
+    loadEvents();
+  }, 30000);
+}, 5000); // wait 5s after first load
 
 document.getElementById("eventSearch").addEventListener("input", function () {
   const q = this.value.trim().toLowerCase();
@@ -261,8 +256,17 @@ document.getElementById("eventSearch").addEventListener("input", function () {
 });
 
 // Restore last updated time after refresh
-const savedTime = localStorage.getItem("lastUpdatedTime");
-if (savedTime) {
-  document.getElementById("lastUpdated").innerText = savedTime;
-}
+document.addEventListener("DOMContentLoaded", () => {
+
+  // restore last updated time
+  const savedTime = localStorage.getItem("lastUpdatedTime");
+  if (savedTime) {
+    const el = document.getElementById("lastUpdated");
+    if (el) el.innerText = savedTime;
+  }
+
+  loadScoreboard();
+  loadEvents();
+
+});
 
