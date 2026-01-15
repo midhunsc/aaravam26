@@ -3,6 +3,7 @@ console.log("JS loaded");
 const SHEET_ID = "1UYOe8f-uzv--xQNNOxWFyBvZAC9iFZplJnr7TMfNn8U";
 const PAGE_SIZE = 5;
 
+let filteredEvents = [];
 let lastScoreboardData = "";
 let lastEventsData = "";
 let allEvents = [];
@@ -79,6 +80,7 @@ function loadEvents() {
       );
 
       allEvents = published;
+      filteredEvents = published;
       eventsVisible = PAGE_SIZE;
 
       renderEvents();
@@ -90,8 +92,9 @@ function loadEvents() {
 
 function renderEvents() {
   let html = "";
+  const list = filteredEvents.length ? filteredEvents : allEvents;
 
-  allEvents.slice(0, eventsVisible).forEach(e => {
+  list.slice(0, eventsVisible).forEach(e => {
     html += `
       <div class="col-md-4">
         <div class="event-card">
@@ -179,4 +182,25 @@ setInterval(() => {
 document.addEventListener("DOMContentLoaded", () => {
   loadScoreboard();
   loadEvents();
+});
+
+document.getElementById("eventSearch").addEventListener("input", function () {
+  const q = this.value.trim().toLowerCase();
+
+  if (!q) {
+    filteredEvents = allEvents;
+  } else {
+    filteredEvents = allEvents.filter(e =>
+      e.Event.toLowerCase().includes(q) ||
+      e.Firststud.toLowerCase().includes(q) ||
+      e.Secondstud.toLowerCase().includes(q) ||
+      e.Thirdstud.toLowerCase().includes(q) ||
+      e.Firstdept.toLowerCase().includes(q) ||
+      e.Seconddept.toLowerCase().includes(q) ||
+      e.Thirddept.toLowerCase().includes(q)
+    );
+  }
+
+  eventsVisible = PAGE_SIZE;
+  renderEvents();
 });

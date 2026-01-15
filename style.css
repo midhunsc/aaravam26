@@ -341,3 +341,23 @@ button {
   color: #ffc402; /* bright yellow on hover */
   transition: 0.3s ease;
 }
+
+.event-search {
+  text-align: center;
+  margin: 20px 0;
+}
+
+#eventSearch {
+  width: 90%;
+  max-width: 400px;
+  padding: 10px 14px;
+  border-radius: 25px;
+  border: 1px solid #ccc;
+  font-size: 0.95rem;
+  outline: none;
+}
+
+#eventSearch:focus {
+  border-color: #ffc402;
+  box-shadow: 0 0 6px rgba(255,196,2,0.4);
+}
