@@ -8,99 +8,223 @@
 
   <!-- Bootstrap -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Alegreya:wght@400;500;600;700&family=Noto+Serif+Malayalam:wght@400;600;700&display=swap" rel="stylesheet">
+
   <link rel="stylesheet" href="style.css">
-  <link href="https://fonts.googleapis.com/css2?family=Algreya:wght@400;700&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Malayalam:wght@400;700&display=swap" rel="stylesheet">
   <link rel="icon" href="collegelogo.png" type="image/png">
 </head>
 
-
-
 <body>
 
+  <!-- TOP DECORATIVE STRIPE -->
+  <div class="kasavu-top"></div>
+
+  <!-- HEADER -->
   <header class="fest-header">
-  <div class="header-content">
-    <img src="collegelogo.svg" alt="College Logo" class="college-logo">
 
-    <div class="header-text">
-      <h1 class="college-name">Mary Matha Arts & Science College</h1>
-      <h2 class="fest-name">Mananthavady</h2>
+    <div class="pookalam-decoration pookalam-left">✿</div>
+    <div class="pookalam-decoration pookalam-right">✿</div>
+
+    <div class="header-content">
+
+      <img src="collegelogo.svg"
+           alt="College Logo"
+           class="college-logo">
+
+      <div class="header-text">
+        <div class="malayalam-title">കളിക 2026</div>
+
+        <h1 class="college-name">
+          Mary Matha Arts & Science College
+        </h1>
+
+        <h2 class="fest-name">
+          Mananthavady
+        </h2>
+
+        <div class="onam-line">
+          <span>✦</span>
+          <span>ഓണം ആഘോഷം 2026</span>
+          <span>✦</span>
+        </div>
+      </div>
+
     </div>
-  </div>
-</header>
-
-<div class="container my-5">
-<h3 class="section-title events animated-header">KALIKA 2026</h3>
-  <!-- SCOREBOARD -->
-<section class="section scoreboard-section">
-  <div class="scoreboard-header">
-  <h3 class="section-title scoreboard">Scoreboard</h3>
-
-  <div class="scoreboard-meta">
-    <div id="lastUpdated" class="last-updated"></div>
-    <span class="live-badge">
-      <span class="live-dot"></span> LIVE
-    </span>
-    
-  </div>
-</div>
+  </header>
 
 
-  <div class="table-wrapper">
-    <table class="score-table">
-      <thead>
-        <tr>
-          <th>Rank</th>
-          <th>Department</th>
-          <th>Points</th>
-        </tr>
-      </thead>
-      <tbody id="scoreboard"></tbody>
-    </table>
-  </div>
+  <!-- HERO -->
+  <section class="hero-section">
 
-  
-</section>
+    <div class="hero-pattern"></div>
 
+    <div class="hero-content">
 
+      <div class="small-heading">
+        ✿ ONAM CELEBRATIONS ✿
+      </div>
 
+      <h1 class="kalika-title">
+        KALIKA <span>2026</span>
+      </h1>
 
-  <!-- EVENTS -->
-  <section class="section">
+      <div class="title-decoration">
+        <span></span>
+        ❖
+        <span></span>
+      </div>
 
-  <div class="event-search">
-      <input
-        type="text"
-        id="eventSearch"
-        placeholder="🔍 Search event / student / department..."
-      >
-  </div>
+      <p class="hero-subtitle">
+        Celebrating Tradition • Talent • Togetherness
+      </p>
 
-  <h3 class="section-title events">Event Results</h3>
+    </div>
 
-  <div class="row g-4" id="events"></div>
-<div id="noResults" class="no-results" style="display:none;">
-  No results found
-</div>
-
-  <div class="text-center mt-4">
-    <button id="viewMoreBtn" class="btn btn-outline-primary me-2">
-      View More
-    </button>
-    <button id="viewLessBtn" class="btn btn-outline-secondary">
-      View Less
-    </button>
-  </div>
-
-</section>
+  </section>
 
 
-</div>
+  <main class="container main-container">
 
-<footer class="site-footer">
-  <p>Designed, Developed and Maintained by IT Club MMC</p>
-</footer>
+    <!-- SCOREBOARD -->
+    <section class="section scoreboard-section">
 
-<script src="script.js"></script>
+      <div class="section-heading">
+
+        <div class="section-icon">
+          🏆
+        </div>
+
+        <div>
+          <div class="section-kicker">
+            KALIKA 2026
+          </div>
+
+          <h2 class="section-title">
+            Scoreboard
+          </h2>
+        </div>
+
+        <div class="scoreboard-meta">
+          <div id="lastUpdated" class="last-updated"></div>
+
+          <span class="live-badge">
+            <span class="live-dot"></span>
+            LIVE
+          </span>
+        </div>
+
+      </div>
+
+
+      <div class="table-wrapper">
+
+        <table class="score-table">
+
+          <thead>
+            <tr>
+              <th>Rank</th>
+              <th>Department</th>
+              <th>Points</th>
+            </tr>
+          </thead>
+
+          <tbody id="scoreboard"></tbody>
+
+        </table>
+
+      </div>
+
+    </section>
+
+
+    <!-- EVENT RESULTS -->
+    <section class="section events-section">
+
+      <div class="section-heading">
+
+        <div class="section-icon">
+          🌼
+        </div>
+
+        <div>
+          <div class="section-kicker">
+            KALIKA 2026
+          </div>
+
+          <h2 class="section-title">
+            Event Results
+          </h2>
+        </div>
+
+      </div>
+
+
+      <!-- SEARCH -->
+      <div class="event-search">
+
+        <span class="search-icon">⌕</span>
+
+        <input
+          type="text"
+          id="eventSearch"
+          placeholder="Search event, student or department..."
+        >
+
+      </div>
+
+
+      <!-- EVENTS -->
+      <div class="row g-4" id="events"></div>
+
+      <div id="noResults" class="no-results" style="display:none;">
+        <div class="no-results-icon">🌼</div>
+        No results found
+      </div>
+
+
+      <!-- BUTTONS -->
+      <div class="event-buttons">
+
+        <button id="viewMoreBtn" class="onam-btn primary-btn">
+          View More
+        </button>
+
+        <button id="viewLessBtn" class="onam-btn secondary-btn">
+          View Less
+        </button>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+
+    <div class="footer-flower">
+      ✿ ❁ ✿
+    </div>
+
+    <div class="footer-title">
+      KALIKA 2026
+    </div>
+
+    <p>
+      Designed, Developed and Maintained by IT Club MMC
+    </p>
+
+    <div class="footer-flower">
+      ✿ ❁ ✿
+    </div>
+
+  </footer>
+
+
+  <script src="script.js"></script>
+
 </body>
 </html>
