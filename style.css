@@ -679,44 +679,146 @@ body {
 
 
 /* =========================================================
-   EVENT CARDS
+   INDIVIDUAL EVENT RESULT CARDS
    ========================================================= */
 
 #events > div {
-
   height: 100%;
 }
 
-
-#events .card {
-
+.event-card {
   height: 100%;
+  padding: 22px;
 
-  border: 1px solid #e4d49a;
+  background: #fffdf7;
 
-  border-radius: 14px;
+  /* Clearly visible Onam-style border */
+  border: 2px solid #d4af37;
 
-  overflow: hidden;
-
-  background: white;
+  border-radius: 16px;
 
   box-shadow:
-    0 7px 20px rgba(50,70,40,.08);
+    0 4px 12px rgba(20, 83, 45, 0.10);
+
+  position: relative;
 
   transition:
-    transform .25s ease,
-    box-shadow .25s ease;
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    border-color 0.2s ease;
 }
 
+/* Small decorative gold line at top */
+.event-card::before {
+  content: "";
+  position: absolute;
 
-#events .card:hover {
+  top: 0;
+  left: 20px;
+  right: 20px;
 
+  height: 4px;
+
+  background: #14532d;
+
+  border-radius: 0 0 5px 5px;
+}
+
+/* Hover */
+.event-card:hover {
   transform: translateY(-5px);
 
+  border-color: #14532d;
+
   box-shadow:
-    0 14px 30px rgba(40,70,40,.14);
+    0 10px 22px rgba(20, 83, 45, 0.18);
 }
 
+
+/* Event name */
+.event-card h5 {
+  margin-top: 5px;
+
+  color: #14532d;
+
+  font-size: 21px;
+
+  font-weight: 700;
+
+  line-height: 1.3;
+
+  padding-bottom: 12px;
+
+  border-bottom: 1px solid #e4d49a;
+}
+
+
+/* Individual winner */
+.event-card .winner {
+  padding: 10px 8px;
+
+  margin-bottom: 7px;
+
+  border-radius: 8px;
+
+  background: #fff8df;
+
+  border-left: 4px solid #d4af37;
+}
+
+
+/* Student name */
+.event-card .winner strong {
+  color: #214c32;
+
+  font-size: 16px;
+}
+
+
+/* Department */
+.event-card .winner small {
+  display: inline-block;
+
+  margin-left: 25px;
+
+  margin-top: 2px;
+
+  color: #68736b;
+
+  font-size: 14px;
+}
+
+
+/* First / second / third rows */
+.event-card .winner:nth-child(2) {
+  border-left-color: #d4af37;
+}
+
+.event-card .winner:nth-child(3) {
+  border-left-color: #a8a8a8;
+}
+
+.event-card .winner:nth-child(4) {
+  border-left-color: #b87945;
+}
+
+
+/* Mobile */
+@media (max-width: 576px) {
+
+  .event-card {
+    padding: 18px;
+
+    border-width: 2px;
+
+    border-radius: 13px;
+  }
+
+  .event-card h5 {
+    font-size: 19px;
+  }
+
+}
 
 /* =========================================================
    BUTTONS
